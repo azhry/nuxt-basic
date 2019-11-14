@@ -1,0 +1,39 @@
+{
+  "name": "rcti-nuxt",
+  "version": "1.0.0",
+  "description": "My fabulous Nuxt.js project",
+  "author": "azhry",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon src/server/index.js --watch server",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node src/server/index.js",
+    "generate": "nuxt generate",
+    "build:firebase": "yarn clean && yarn build && yarn copy && cd \"functions\" && yarn",
+    "clean": "yarn clean:public && yarn clean:functions && yarn clean:static",
+    "clean:functions": "rimraf \"functions/node_modules\" && rimraf \"functions/.nuxt\"",
+    "clean:public": "rimraf \"public/**/*.*!(md)\" && rimraf \"public/_nuxt\"",
+    "clean:static": "rimraf \"src/static/sw.js\"",
+    "copy": "yarn copy:nuxt && yarn copy:static",
+    "copy:nuxt": "xcopy \"functions\\.nuxt\\dist\\*\" \"public\\_nuxt\\\" /E /Y",
+    "copy:static": "xcopy \"src\\static\\*\" \"public\\\" /E /Y",
+    "start:firebase": "firebase serve --only functions,hosting",
+    "deploy": "yarn build:firebase && firebase deploy --only functions,hosting"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-brands-svg-icons": "^5.11.2",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/vue-fontawesome": "^0.1.8",
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "bootstrap-vue": "^2.1.0",
+    "cross-env": "^5.2.0",
+    "express": "^4.16.4",
+    "nuxt": "^2.0.0",
+    "nuxt-fontawesome": "^0.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
